@@ -15,10 +15,13 @@ def home(dogs):
     #     return render_template("index.html")
     # else:
     #     search = request.form["search_term"]
+   
+    ## for searchbox switch to search var
 
     ## wikipedia data
+    
     try:
-        return jsonify(links =  wikipedia.page(dogs).url)
+        return jsonify(links =  wikipedia.page(dogs).url) 
     except wikipedia.exceptions.DisambiguationError as e:
         results =  e.options
         
