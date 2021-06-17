@@ -3,10 +3,9 @@ import wikipedia
 from wikipedia import exceptions
 
 app = Flask(__name__, subdomain_matching=True)
-app.config["SERVER_NAME"] = 'wiki-search.com:5000'
 
-@app.route('/', subdomain="<dogs>")
-def home(dogs):
+@app.route('/', subdomain="<var>", methods=['GET'])
+def home(var):
     
     links = []
 
@@ -16,12 +15,12 @@ def home(dogs):
     # else:
     #     search = request.form["search_term"]
    
-    ## for searchbox switch to search var
+    ## for searchbox switch to var
 
     ## wikipedia data
     
     try:
-        return jsonify(links =  wikipedia.page(dogs).url) 
+        return jsonify(links =  wikipedia.page(var).url) 
     except wikipedia.exceptions.DisambiguationError as e:
         results =  e.options
         
@@ -34,7 +33,9 @@ def home(dogs):
     return jsonify(links=links)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    website_url = 'wiki-search.com:5000'
+    app.config['SERVER_NAME'] = website_url
+    app.run()
 
 
 
